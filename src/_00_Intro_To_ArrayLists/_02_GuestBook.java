@@ -48,6 +48,7 @@ public class _02_GuestBook implements ActionListener {
 	public void setup() {
 		button1.addActionListener(this);
 		button2.addActionListener(this);
+		guestBookView = "";
 	}
 
 	@Override
@@ -59,13 +60,14 @@ public class _02_GuestBook implements ActionListener {
 			guestBook.add(nameAdd);
 			JOptionPane.showMessageDialog(button1, "Name Added!");
 		} else if (buttonClicked == button2) {
+			guestBookView = "";
 			guestArray = guestBook.toArray();
 			for (int i = 0; i < guestArray.length; i++) {
 int j = i+1;
 				guestBookView += "Guest #" + j + ": " + guestArray[i].toString() + "\n";
 			}
 			JOptionPane.showMessageDialog(button2, guestBookView);
-		}
+		} 
 	}
 	
     /*
