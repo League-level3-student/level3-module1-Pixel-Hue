@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,11 +50,19 @@ public class GameBoard extends JFrame implements ActionListener {
         // 3. Create TOTAL_CARDS number of objects each with a value of 1.
         //    Also, add action listeners to each Card object and then add each
         //    of the Card objects to the ArrayList of Cards.
-        for (int i = 0; i < TOTAL_CARDS; i++) {
+        for (int i = 0; i < TOTAL_CARDS/4; i++) {
         	//when creating and card add a pair of 2 at a time to make sure all cards have a matching pair.
-        	Card card = new Card(1);
+        	Random ran = new Random();
+       
+        for (int j = 0; j < 4; j++) {
+        	Card card = new Card(i+1);
         	card.addActionListener(this);
-        	  cards.add(card);
+       	  cards.add(card);
+		
+		}
+        	
+        
+       
 		}
   
         
