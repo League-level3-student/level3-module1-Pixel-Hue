@@ -50,19 +50,25 @@ public class GameBoard extends JFrame implements ActionListener {
         // 3. Create TOTAL_CARDS number of objects each with a value of 1.
         //    Also, add action listeners to each Card object and then add each
         //    of the Card objects to the ArrayList of Cards.
-        for (int i = 0; i < TOTAL_CARDS/4; i++) {
-        	//when creating and card add a pair of 2 at a time to make sure all cards have a matching pair.
-        	Random ran = new Random();
-       
-        for (int j = 0; j < 4; j++) {
-        	Card card = new Card(i+1);
-        	card.addActionListener(this);
-       	  cards.add(card);
-		
-		}
-        	
+        int cardNumber = 1;
+        int j = 0;
+        for (int i = 0; i < TOTAL_CARDS; i++) {
+        	//remake all this to make cards be correct
         
        
+      
+        	Card card = new Card(cardNumber);
+        	card.addActionListener(this);
+       	  cards.add(card);
+       	card.setFaceUpIcon(Card.cardImagesPath + String.valueOf(i+1) + ".png");
+		System.out.println("card created number was " + cardNumber + " and the image number was " + (i+1));
+        	
+        
+       	j++;
+       	if (j == 4) {
+       		j=0;
+       		cardNumber++;
+       	}
 		}
   
         
@@ -89,6 +95,7 @@ public class GameBoard extends JFrame implements ActionListener {
     //    Run your code and verify 2 cards are displayed and the game works.
     public void drawCards() {
         for (int i = 0; i < cards.size(); i++) {
+        	
 			cards.get(i).draw();
 		}
     }

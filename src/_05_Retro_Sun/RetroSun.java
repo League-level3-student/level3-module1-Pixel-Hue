@@ -10,7 +10,7 @@ import processing.core.PApplet;
  */
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
-    static final int HEIGHT = 600;
+    static final int HEIGHT = 800;
 
     // RGB colors
     int[] sunColors = {
@@ -24,13 +24,13 @@ public class RetroSun extends PApplet {
     @Override
     public void settings() {
         // 1. Set the size of your sketch to at least 800 width, 600 height
-        
+        size(WIDTH, HEIGHT);
     }
 
     @Override
     public void setup() {
         // 2. Set bgColor as the background color
-        
+       background(bgColor); 
     }
 
     @Override
@@ -42,7 +42,9 @@ public class RetroSun extends PApplet {
         // Draw an ellipse for the sun in the center of the window
         // Use fill(sunColors[0]) to make it yellow
         // Use noStroke() to remove the black outline
-
+fill(sunColors[0]);
+noStroke();
+ellipse(400, 400, 400, 400);
         // Do you see a yellow sun like in the 1st image?
         // If not, fix your code before proceeding.
 
@@ -52,7 +54,7 @@ public class RetroSun extends PApplet {
          *
          * This will make the sun have gradually different colors from the top to bottom
          */
-
+interpolateColor(sunColors, 1);
         // Call the loadPixels() method to put all the pixel colors into
         // the pixels[] array
         // https://processing.org/reference/loadPixels_.html
