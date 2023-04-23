@@ -1,5 +1,7 @@
 package _05_Retro_Sun;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 
 /*
@@ -11,7 +13,11 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
-
+    int y;
+    int x;
+    int w;
+    float h;
+    int middleY;
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -31,6 +37,11 @@ public class RetroSun extends PApplet {
     public void setup() {
         // 2. Set bgColor as the background color
        background(bgColor); 
+       middleY = 400;
+        y = 600;
+       h = 40;
+       x = 400 - 200;
+      w = 2 * 200;
     }
 
     @Override
@@ -54,7 +65,7 @@ ellipse(400, 400, 400, 400);
          *
          * This will make the sun have gradually different colors from the top to bottom
          */
-interpolateColor(sunColors, 1);
+
         // Call the loadPixels() method to put all the pixel colors into
         // the pixels[] array
         // https://processing.org/reference/loadPixels_.html
@@ -84,7 +95,16 @@ interpolateColor(sunColors, 1);
         // update the pixel colors
         // https://processing.org/reference/updatePixels_.html
 
-        
+      loadPixels();
+     
+      for (int i = 0; i < pixels.length; i++) {
+		if (pixels[i] == sunColors[0]) {
+			float step = map(i/width, 0, 800, 0, 1);
+			 int pcolor = interpolateColor(sunColors, step);
+			 pixels[i] = pcolor;
+		}
+	}
+      updatePixels();
         /*
          * PART 3: Drawing the missing sections at the bottom of the sun
          *
@@ -105,7 +125,9 @@ interpolateColor(sunColors, 1);
         //  float w = 2 * sunRadius
         
         // Do you see a section missing from the sun like in the 3rd image?
+fill(bgColor);
 
+rect(x, y, w, h);
         
         /*
          * PART 4: Moving the missing sun sections
@@ -136,8 +158,13 @@ interpolateColor(sunColors, 1);
 
         // The map() function will make the value of h = 1 if y is at the top,
         // and h = 40 if y is at the bottom.
-
-        
+y--;
+h = map(y, 300, 600, 1, 40);
+        if (y==300) {
+        	h=40;
+        	y= 600;
+        	
+        }
         /*
          * PART 5: Managing the missing sun sections
          *
