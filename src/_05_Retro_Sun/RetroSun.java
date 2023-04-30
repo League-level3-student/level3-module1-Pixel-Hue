@@ -1,6 +1,7 @@
 package _05_Retro_Sun;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
@@ -13,11 +14,16 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
+    ArrayList<Rectangle> rectangleArray = new ArrayList<Rectangle>();
     int y;
     int x;
     int w;
     float h;
     int middleY;
+  int numStars;
+  int starColor = color(255, 255, 255);
+   ArrayList<Star> stars = new ArrayList<>();
+
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -38,14 +44,26 @@ public class RetroSun extends PApplet {
         // 2. Set bgColor as the background color
        background(bgColor); 
        middleY = 400;
+       for (int i = 0; i < 3; i++) {
+    	   Rectangle tempR = new Rectangle(400 - 200, 600 + (i*75), 2 *200, 40);
+    	  rectangleArray.add(tempR);
+	}
         y = 600;
        h = 40;
        x = 400 - 200;
       w = 2 * 200;
+      for (int i = 0; i < numStars; i++) {
+			float starX = random(800);
+			float starY = random(800);
+			//change star x and y to int
+			//Star tempS = new Star(starX, starY, starColor);
+		}
     }
 
     @Override
     public void draw() {
+    	
+    
         /*
          * PART 1: Drawing the sun
          */
@@ -127,7 +145,7 @@ ellipse(400, 400, 400, 400);
         // Do you see a section missing from the sun like in the 3rd image?
 fill(bgColor);
 
-rect(x, y, w, h);
+
         
         /*
          * PART 4: Moving the missing sun sections
@@ -158,13 +176,22 @@ rect(x, y, w, h);
 
         // The map() function will make the value of h = 1 if y is at the top,
         // and h = 40 if y is at the bottom.
-y--;
+for (int i = 0; i < rectangleArray.size(); i++) {
+	rect(rectangleArray.get(i).x, rectangleArray.get(i).y, rectangleArray.get(i).w, rectangleArray.get(i).h);
+	rectangleArray.get(i).y--;
+	rectangleArray.get(i).h = map(rectangleArray.get(i).y, 350, 600, 1, 40);
+	 if (rectangleArray.get(i).y==350) {
+		 rectangleArray.get(i).h=40;
+     	rectangleArray.get(i).y= 600;
+     }
+}
+/*y--;
 h = map(y, 300, 600, 1, 40);
         if (y==300) {
         	h=40;
-        	y= 600;
-        	
-        }
+        	y= 600;}
+  */      	
+        
         /*
          * PART 5: Managing the missing sun sections
          *
@@ -184,8 +211,8 @@ h = map(y, 300, 600, 1, 40);
          * reflections and stars. See RetroSun.html in this folder for some
          * example classes
          */
-    }
-
+    
+}
     static public void main(String[] passedArgs) {
         PApplet.main(RetroSun.class.getName());
     }
@@ -222,4 +249,32 @@ h = map(y, 300, 600, 1, 40);
             this.h = h;
         }
     }
-}
+    class Star {
+    	  int x;
+    	  int y;
+    	  int starColor;
+    	  float startAlpha;
+    	  float alpha;
+    	  float diameter;
+
+    	  Star(int x, int y, int col) {
+    	    this.x = x;
+    	    this.y = y;
+    	    starColor = col;
+    	    this.diameter = random(0.1f, 3);
+    	    this.startAlpha = random(1, 200);
+    	    this.alpha = startAlpha;
+    	  }
+    	  
+    	  void setAlpha(int alpha){
+    	    this.alpha = constrain(alpha, startAlpha, 255);
+    	  }
+
+    	  void draw() {
+    	    noStroke();
+    	    fill(starColor, alpha);
+    	    float blink = random(0, 0.8f);
+    	    ellipse(x, y, diameter + blink, diameter + blink);
+    	  }
+}}
+
