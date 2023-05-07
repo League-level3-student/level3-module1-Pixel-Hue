@@ -20,7 +20,7 @@ public class RetroSun extends PApplet {
     int w;
     float h;
     int middleY;
-  int numStars;
+  int numStars = 100;
   int starColor = color(255, 255, 255);
    ArrayList<Star> stars = new ArrayList<>();
 
@@ -53,17 +53,22 @@ public class RetroSun extends PApplet {
        x = 400 - 200;
       w = 2 * 200;
       for (int i = 0; i < numStars; i++) {
-			float starX = random(800);
-			float starY = random(800);
+			float starRanX = random(800);
+			int starX= (int)starRanX;
+			float starRanY = random(800);
+			int starY= (int)starRanY;
 			//change star x and y to int
-			//Star tempS = new Star(starX, starY, starColor);
+			Star tempS = new Star(starX, starY, starColor);
+			stars.add(tempS);
 		}
     }
 
     @Override
     public void draw() {
     	
-    
+    for (int i = 0; i < stars.size(); i++) {
+		stars.get(i).draw();
+	}
         /*
          * PART 1: Drawing the sun
          */
@@ -276,5 +281,7 @@ h = map(y, 300, 600, 1, 40);
     	    float blink = random(0, 0.8f);
     	    ellipse(x, y, diameter + blink, diameter + blink);
     	  }
-}}
+}
+    
+}
 
