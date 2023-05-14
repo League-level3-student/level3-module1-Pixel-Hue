@@ -10,7 +10,11 @@ HashMap<Integer, Double> values = new HashMap<Integer, Double>();
         // 2. Using a for-loop, add 500 entries to your HashMap. The key entry will be the 
         //    current iteration of the loop (i). The value entry will be the square root of i.
 for (int i = 0; i < 500; i++) {
-	//values.put(i, sqrt(i));
+	double sqrtDouble = Math.sqrt(i);
+	values.put(i, sqrtDouble);
+}
+for(Integer i : values.keySet()){
+    System.out.println("key: " + i + ", value: " + values.get(i));
 }
         // 3. Iterate through all the entries in your HashMap displaying the keys with their respective
         //    square roots (values). Use the following format.
@@ -20,4 +24,6 @@ for (int i = 0; i < 500; i++) {
         //    The square Root of 2 is 1.4142135623730951
         //    The square Root of 3 is 1.7320508075688772
     }
+
+
 }
