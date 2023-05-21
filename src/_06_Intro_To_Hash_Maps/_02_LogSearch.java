@@ -1,12 +1,16 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class _02_LogSearch {
+public class _02_LogSearch implements ActionListener {
     /*
      * Crate a HashMap of Integers for the keys and Strings for the values.
      * Create a GUI with three buttons.
@@ -54,7 +58,29 @@ public void setup() {
 	panel.add(addEntry);
 	panel.add(searchID);
 	panel.add(view);
+	addEntry.addActionListener(this);
+	searchID.addActionListener(this);
+	view.addActionListener(this);
 	frame.setVisible(true);
 	frame.pack();
+}
+
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	Object buttonPressed = e.getSource();
+	if (buttonPressed == addEntry) {
+		String ID = JOptionPane.showInputDialog("Please enter an ID for the name");
+		int IDnum = Integer.parseInt(ID);
+		String name = JOptionPane.showInputDialog("Now please enter the name to be associated with the ID");
+		entries.put(IDnum, name);
+	}
+	else if (buttonPressed == searchID) {
+		String IDsearch = JOptionPane.showInputDialog("Please enter the ID of the name you want to search for");
+		int IDnum = Integer.parseInt(IDsearch);
+		 for(Integer i : entries.keySet()){
+	//iterate to check if idnum = any of the ids so that you can say the id is not listed
+	}
+}
 }
 }
