@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -48,6 +49,10 @@ JButton searchID = new JButton();
 JButton view = new JButton();
 JFrame frame = new JFrame();
 JPanel panel = new JPanel();
+JLabel entryLabel = new JLabel();
+JLabel searchLabel = new JLabel();
+JLabel viewLabel = new JLabel();
+boolean idListed;
 public static void main(String[] args) {
 	_02_LogSearch ls = new _02_LogSearch(); 
 	ls.setup();
@@ -58,6 +63,13 @@ public void setup() {
 	panel.add(addEntry);
 	panel.add(searchID);
 	panel.add(view);
+	entryLabel.setText("Add Entry");
+	searchLabel.setText("Search by ID");
+	viewLabel.setText("View List");
+	addEntry.add(entryLabel);
+	searchID.add(searchLabel);
+	view.add(viewLabel);
+	
 	addEntry.addActionListener(this);
 	searchID.addActionListener(this);
 	view.addActionListener(this);
@@ -79,8 +91,24 @@ public void actionPerformed(ActionEvent e) {
 		String IDsearch = JOptionPane.showInputDialog("Please enter the ID of the name you want to search for");
 		int IDnum = Integer.parseInt(IDsearch);
 		 for(Integer i : entries.keySet()){
+			 if(entries.get(IDnum) == entries.get(i)) {idListed = true;};
 	//iterate to check if idnum = any of the ids so that you can say the id is not listed
 	}
+		 if (idListed) {
+			 JOptionPane.showMessageDialog(null, "ID: " + IDnum + " Name: " + entries.get(IDnum));
+			idListed = false;
+		} else {
+			JOptionPane.showMessageDialog(null, "That entry/id does not exist");
+	}
 }
+	else if (buttonPressed == view)
+	{
+		String list = new String();
+		for(Integer i : entries.keySet()){
+			list+="\n ID: " + i + " Name: " + entries.get(i);
+		
+		}
+		JOptionPane.showMessageDialog(null, list);
+	}
 }
 }
