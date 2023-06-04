@@ -47,6 +47,7 @@ HashMap<Integer, String> entries = new HashMap<Integer, String>();
 JButton addEntry = new JButton();
 JButton searchID = new JButton();
 JButton view = new JButton();
+JButton removeEntry = new JButton();
 JFrame frame = new JFrame();
 JPanel panel = new JPanel();
 JLabel entryLabel = new JLabel();
@@ -63,16 +64,18 @@ public void setup() {
 	panel.add(addEntry);
 	panel.add(searchID);
 	panel.add(view);
-	entryLabel.setText("Add Entry");
-	searchLabel.setText("Search by ID");
-	viewLabel.setText("View List");
-	addEntry.add(entryLabel);
-	searchID.add(searchLabel);
-	view.add(viewLabel);
+	panel.add(removeEntry);
 	
-	addEntry.addActionListener(this);
+	addEntry.setText("Add Entry");
+	searchID.setText("Search by ID");
+	view.setText("View List");
+	removeEntry.setText("Remove Entry");
+
+		addEntry.addActionListener(this);
 	searchID.addActionListener(this);
 	view.addActionListener(this);
+	removeEntry.addActionListener(this);
+	
 	frame.setVisible(true);
 	frame.pack();
 }
@@ -109,6 +112,22 @@ public void actionPerformed(ActionEvent e) {
 		
 		}
 		JOptionPane.showMessageDialog(null, list);
+	}
+	else if (buttonPressed == removeEntry) {
+		String ID = JOptionPane.showInputDialog("Please enter an ID for the entry you want to remove");
+		int IDnum = Integer.parseInt(ID);
+		for(Integer i : entries.keySet()){
+			 if(entries.get(IDnum) == entries.get(i)) {idListed = true;};
+	//iterate to check if idnum = any of the ids so that you can say the id is not listed
+	}
+		 if (idListed) {
+			 entries.remove(IDnum);
+				JOptionPane.showMessageDialog(null, "Entry Removed!");
+				idListed = false;
+		} else {
+			JOptionPane.showMessageDialog(null, "That entry/id does not exist");
+	}
+		
 	}
 }
 }
