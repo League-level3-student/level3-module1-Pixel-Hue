@@ -27,10 +27,26 @@ public class MeetingScheduler {
      */
     public static Schedule getMutualAvailability(Schedule person1, Schedule person2) {
         HashMap <String, ArrayList<Integer>> schedule1 = person1.getSchedule();
-        for(String i : schedule1.keySet()){
-        	System.out.println(i + "Times Available: " );
-        	//figure out how to print out the day and all the times for that day to be able to compare the schedules of the 2 people
+        HashMap <String, ArrayList<Integer>> schedule2 = person2.getSchedule();
+        System.out.println(schedule1);
+        for(String day : schedule1.keySet()){
+        	System.out.println(day + " Times Available: " + schedule1.get(day));
+        	System.out.println(day + " Times Available: " + schedule2.get(day));
+        	for (int j = 0; j < schedule1.get(day).size(); j++) {
+        		for (int k = 0; k < schedule2.get(day).size(); k++) {
+        			System.out.println("this " + schedule1.get(day).get(j));
+        			if (schedule1.get(day).get(j) == schedule2.get(day).get(k)) {
+            			/*figure out how to return the schedule object that contains the times during 
+        				the entire week that both peoples schedules have. This method finds if there is the same times for a single day but needs 
+        				to be compiled into 1 schedule object to be returned*/
+            		}
+				}
+        		
+			}
+        
+        	
         }
+        System.out.println("Returned null");
         return null;
     }
 }
