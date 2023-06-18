@@ -33,12 +33,18 @@ public class MeetingScheduler {
         	System.out.println(day + " Times Available: " + schedule1.get(day));
         	System.out.println(day + " Times Available: " + schedule2.get(day));
         	for (int j = 0; j < schedule1.get(day).size(); j++) {
+        		System.out.println("this " + schedule1.get(day).get(j));
         		for (int k = 0; k < schedule2.get(day).size(); k++) {
-        			System.out.println("this " + schedule1.get(day).get(j));
+        		
+        			System.out.println("2nd this " + schedule2.get(day).get(k));
         			if (schedule1.get(day).get(j) == schedule2.get(day).get(k)) {
             			/*figure out how to return the schedule object that contains the times during 
         				the entire week that both peoples schedules have. This method finds if there is the same times for a single day but needs 
         				to be compiled into 1 schedule object to be returned*/
+        				 Schedule availability = new Schedule();
+        				 
+        				 availability.addAvailability(day, j);
+        				 return availability;
             		}
 				}
         		
