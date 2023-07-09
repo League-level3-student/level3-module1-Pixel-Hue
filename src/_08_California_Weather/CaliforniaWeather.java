@@ -1,7 +1,15 @@
 package _08_California_Weather;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /*
  * OBJECTIVE:
  * 1. Create a program that allows the user to search for the weather
@@ -27,19 +35,62 @@ import java.util.HashMap;
  * temperature, you can get a free API key at: https://openweathermap.org/api
  */
 
-public class CaliforniaWeather {
-    
+public class CaliforniaWeather implements ActionListener {
+	JFrame frame = new JFrame();
+    JPanel panel = new JPanel();
+    JButton citySearch = new JButton();
+    JButton conditionSearch = new JButton();
+    JButton rangeSearch = new JButton();
+    HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
     void start() {
-        HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
+    	frame.add(panel);
+    	panel.add(citySearch);
+    	panel.add(conditionSearch);
+    	panel.add(rangeSearch);
+    	citySearch.addActionListener(this);
+    	conditionSearch.addActionListener(this);
+    	rangeSearch.addActionListener(this);
+    	frame.setTitle("Weather Finder");
+    	citySearch.setText("Search By City");
+    	conditionSearch.setText("Search By Weather Condition");
+    	rangeSearch.setText("Search By Tempature Range");
+    	frame.setVisible(true);
+    	frame.pack();
+    	
+       
         
         // All city keys have the first letter capitalized of each word
-        String cityName = Utilities.capitalizeWords( "National City" );
-        WeatherData datum = weatherData.get(cityName);
         
-        if( datum == null ) {
-            System.out.println("Unable to find weather data for: " + cityName);
-        } else {
-            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-        }
-    }
+        
+}
+    
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("a");
+		Object buttonPressed = e.getSource();
+		if (buttonPressed == citySearch) {
+			String input = JOptionPane.showInputDialog("Type the name of the city you would like to view the weather for.");
+	        String cityName = Utilities.capitalizeWords(input);
+	        WeatherData datum = weatherData.get(cityName);
+	        
+	        if( datum == null ) {
+	            System.out.println("Unable to find weather data for: " + cityName);
+	        } else {
+	            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
+	        }
+		} else if (buttonPressed == conditionSearch) {
+			String input = JOptionPane.showInputDialog("Type the weather condition you would like to find.");
+	        String weatherCondition = Utilities.capitalizeWords(input);
+	        ArrayList<String> cityList = new ArrayList<>();
+	        for (String i : weatherData.keySet()) {
+	        	System.out.println(weatherData.get(i));
+	        if (weatherData.get(i).weatherSummary == weatherCondition) {
+	        	//find how to access city name
+	        }
+	        }
+		} else if (buttonPressed == rangeSearch) {
+			
+		}
+	}
 }
