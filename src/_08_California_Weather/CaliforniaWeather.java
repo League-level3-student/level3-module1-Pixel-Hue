@@ -67,7 +67,7 @@ public class CaliforniaWeather implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("a");
+
 		Object buttonPressed = e.getSource();
 		if (buttonPressed == citySearch) {
 			String input = JOptionPane.showInputDialog("Type the name of the city you would like to view the weather for.");
@@ -82,15 +82,35 @@ public class CaliforniaWeather implements ActionListener {
 		} else if (buttonPressed == conditionSearch) {
 			String input = JOptionPane.showInputDialog("Type the weather condition you would like to find.");
 	        String weatherCondition = Utilities.capitalizeWords(input);
+	        int cycle = 0;
 	        ArrayList<String> cityList = new ArrayList<>();
-	        for (String i : weatherData.keySet()) {
-	        	System.out.println(weatherData.get(i));
-	        if (weatherData.get(i).weatherSummary == weatherCondition) {
+	        for (String name : Utilities.getWeatherData().keySet()) {
+	        	
+	        if (weatherData.get(name).weatherSummary.equals(weatherCondition)) {
+	        	
 	        	//find how to access city name
+	        cityList.add(name);
+	        cycle++;
+	        if (cycle == 10) {
+	        	 cityList.add("\n");
+	        	 cycle = 0;
 	        }
 	        }
+	        }
+	        JOptionPane.showMessageDialog(null, "Cities With the Weather Condition (" + weatherCondition + "): " + cityList);
 		} else if (buttonPressed == rangeSearch) {
-			
+			String low = JOptionPane.showInputDialog("Type the lowest tempature (farenheit) you would like to see.");
+			String high = JOptionPane.showInputDialog("Now type the highest tempature (farenheit) you would like to see.");
+			//turn to ints
+			  for (String name : Utilities.getWeatherData().keySet()) {
+				  
+				//int tempature = Integer.parseInt(weatherData.get(name).temperatureF);  
+				//turn tempature into double
+				  System.out.println();
+				 // if (low <=  <= high) {
+					  
+				//  }
+			  }
 		}
 	}
 }
