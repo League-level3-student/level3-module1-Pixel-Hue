@@ -37,80 +37,95 @@ import java.awt.event.ActionListener;
 
 public class CaliforniaWeather implements ActionListener {
 	JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
-    JButton citySearch = new JButton();
-    JButton conditionSearch = new JButton();
-    JButton rangeSearch = new JButton();
-    HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
-    void start() {
-    	frame.add(panel);
-    	panel.add(citySearch);
-    	panel.add(conditionSearch);
-    	panel.add(rangeSearch);
-    	citySearch.addActionListener(this);
-    	conditionSearch.addActionListener(this);
-    	rangeSearch.addActionListener(this);
-    	frame.setTitle("Weather Finder");
-    	citySearch.setText("Search By City");
-    	conditionSearch.setText("Search By Weather Condition");
-    	rangeSearch.setText("Search By Tempature Range");
-    	frame.setVisible(true);
-    	frame.pack();
-    	
-       
-        
-        // All city keys have the first letter capitalized of each word
-        
-        
-}
-    
+	JPanel panel = new JPanel();
+	JButton citySearch = new JButton();
+	JButton conditionSearch = new JButton();
+	JButton rangeSearch = new JButton();
+	HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
+
+	void start() {
+		frame.add(panel);
+		panel.add(citySearch);
+		panel.add(conditionSearch);
+		panel.add(rangeSearch);
+		citySearch.addActionListener(this);
+		conditionSearch.addActionListener(this);
+		rangeSearch.addActionListener(this);
+		frame.setTitle("Weather Finder");
+		citySearch.setText("Search By City");
+		conditionSearch.setText("Search By Weather Condition");
+		rangeSearch.setText("Search By Tempature Range");
+		frame.setVisible(true);
+		frame.pack();
+
+		// All city keys have the first letter capitalized of each word
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
 		Object buttonPressed = e.getSource();
 		if (buttonPressed == citySearch) {
-			String input = JOptionPane.showInputDialog("Type the name of the city you would like to view the weather for.");
-	        String cityName = Utilities.capitalizeWords(input);
-	        WeatherData datum = weatherData.get(cityName);
-	        
-	        if( datum == null ) {
-	            System.out.println("Unable to find weather data for: " + cityName);
-	        } else {
-	            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-	        }
+			String input = JOptionPane
+					.showInputDialog("Type the name of the city you would like to view the weather for.");
+			String cityName = Utilities.capitalizeWords(input);
+			WeatherData datum = weatherData.get(cityName);
+
+			if (datum == null) {
+				System.out.println("Unable to find weather data for: " + cityName);
+			} else {
+				System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of "
+						+ datum.temperatureF + " F");
+			}
 		} else if (buttonPressed == conditionSearch) {
 			String input = JOptionPane.showInputDialog("Type the weather condition you would like to find.");
-	        String weatherCondition = Utilities.capitalizeWords(input);
-	        int cycle = 0;
-	        ArrayList<String> cityList = new ArrayList<>();
-	        for (String name : Utilities.getWeatherData().keySet()) {
-	        	
-	        if (weatherData.get(name).weatherSummary.equals(weatherCondition)) {
-	        	
-	        	//find how to access city name
-	        cityList.add(name);
-	        cycle++;
-	        if (cycle == 10) {
-	        	 cityList.add("\n");
-	        	 cycle = 0;
-	        }
-	        }
-	        }
-	        JOptionPane.showMessageDialog(null, "Cities With the Weather Condition (" + weatherCondition + "): " + cityList);
+			String weatherCondition = Utilities.capitalizeWords(input);
+			int cycle = 0;
+			ArrayList<String> cityList = new ArrayList<>();
+			for (String name : Utilities.getWeatherData().keySet()) {
+
+				if (weatherData.get(name).weatherSummary.equals(weatherCondition)) {
+
+					// find how to access city name
+					cityList.add(name);
+					cycle++;
+					if (cycle == 10) {
+						cityList.add("\n");
+						cycle = 0;
+					}
+				}
+			}
+			JOptionPane.showMessageDialog(null,
+					"Cities With the Weather Condition (" + weatherCondition + "): " + cityList);
 		} else if (buttonPressed == rangeSearch) {
-			String low = JOptionPane.showInputDialog("Type the lowest tempature (farenheit) you would like to see.");
-			String high = JOptionPane.showInputDialog("Now type the highest tempature (farenheit) you would like to see.");
-			//turn to ints
-			  for (String name : Utilities.getWeatherData().keySet()) {
-				  
-				//int tempature = Integer.parseInt(weatherData.get(name).temperatureF);  
-				//turn tempature into double
-				  System.out.println();
-				 // if (low <=  <= high) {
-					  
-				//  }
-			  }
+			int cycle = 0;
+			ArrayList<String> cityList = new ArrayList<>();
+			String lowTemp = JOptionPane
+					.showInputDialog("Type the lowest tempature (farenheit) you would like to see.");
+			int low = Integer.parseInt(lowTemp);
+			String highTemp = JOptionPane
+					.showInputDialog("Now type the highest tempature (farenheit) you would like to see.");
+			int high = Integer.parseInt(highTemp);
+			// turn to ints
+			for (String name : Utilities.getWeatherData().keySet()) {
+
+				double tempature = weatherData.get(name).temperatureF;
+				if (low <= tempature && tempature <= high) {
+					cityList.add(name);
+					cycle++;
+					if (cycle == 10) {
+						cityList.add("\n");
+						cycle = 0;
+					}
+				}
+
+				// find how to access city name
+
+			}
+			JOptionPane.showMessageDialog(null,
+					"Cities With the Tempature Range: " + cityList);
 		}
 	}
 }
