@@ -29,7 +29,7 @@ CrowStomachIterator = theMurder.get(i).getStomachContents().toArray();
      for (int j = 0; j < CrowStomachIterator.length; j++) {
     	  if (CrowStomachIterator[j].toString() == "diamond") {
     			System.out.println(theMurder.get(i).getName() + " stole the diamond!");
-    			System.out.println(i + " crows died before find the diamond!");
+    			System.out.println(i + " crows died before finding the diamond!");
     		}
 	}
   //theMurder.get(i).getStomachContents().toString()

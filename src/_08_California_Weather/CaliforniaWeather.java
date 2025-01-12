@@ -68,6 +68,7 @@ public class CaliforniaWeather implements ActionListener {
 
 		Object buttonPressed = e.getSource();
 		if (buttonPressed == citySearch) {
+			//SHOW IN THE JOPTIONPANE INSTEAD OF CONSOLE
 			String input = JOptionPane
 					.showInputDialog("Type the name of the city you would like to view the weather for.");
 			String cityName = Utilities.capitalizeWords(input);
@@ -80,6 +81,9 @@ public class CaliforniaWeather implements ActionListener {
 						+ datum.temperatureF + " F");
 			}
 		} else if (buttonPressed == conditionSearch) {
+//FIX THIS
+			
+			
 			String input = JOptionPane.showInputDialog("Type the weather condition you would like to find.");
 			String weatherCondition = Utilities.capitalizeWords(input);
 			int cycle = 0;
@@ -100,6 +104,8 @@ public class CaliforniaWeather implements ActionListener {
 			JOptionPane.showMessageDialog(null,
 					"Cities With the Weather Condition (" + weatherCondition + "): " + cityList);
 		} else if (buttonPressed == rangeSearch) {
+
+			// Searching Temperature by range of farenheit (format better)
 			int cycle = 0;
 			ArrayList<String> cityList = new ArrayList<>();
 			String lowTemp = JOptionPane
@@ -124,8 +130,7 @@ public class CaliforniaWeather implements ActionListener {
 				// find how to access city name
 
 			}
-			JOptionPane.showMessageDialog(null,
-					"Cities With the Tempature Range: " + cityList);
+			JOptionPane.showMessageDialog(null, "Cities With the Tempature Range: " + cityList);
 		}
 	}
 }
