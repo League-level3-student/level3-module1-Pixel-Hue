@@ -67,6 +67,7 @@ public class CaliforniaWeather implements ActionListener {
 		// TODO Auto-generated method stub
 
 		Object buttonPressed = e.getSource();
+		
 		if (buttonPressed == citySearch) {
 			//SHOW IN THE JOPTIONPANE INSTEAD OF CONSOLE
 			String input = JOptionPane
@@ -76,10 +77,13 @@ public class CaliforniaWeather implements ActionListener {
 
 			if (datum == null) {
 				System.out.println("Unable to find weather data for: " + cityName);
+				JOptionPane.showMessageDialog(null, "Unable to find weather data for: " + cityName);
 			} else {
-				System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of "
+				
+				JOptionPane.showMessageDialog(null, cityName + " is " + datum.weatherSummary + " with a temperature of "
 						+ datum.temperatureF + " F");
 			}
+			
 		} else if (buttonPressed == conditionSearch) {
 //FIX THIS
 			
@@ -88,8 +92,9 @@ public class CaliforniaWeather implements ActionListener {
 			String weatherCondition = Utilities.capitalizeWords(input);
 			int cycle = 0;
 			ArrayList<String> cityList = new ArrayList<>();
+			
 			for (String name : Utilities.getWeatherData().keySet()) {
-
+				
 				if (weatherData.get(name).weatherSummary.equals(weatherCondition)) {
 
 					// find how to access city name

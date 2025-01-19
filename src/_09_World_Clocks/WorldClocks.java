@@ -2,15 +2,19 @@ package _09_World_Clocks;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
-
+import java.util.HashMap;
 /*
  * You task is to create a java program that:
  * 1. Displays the time for multiple cities around the world on one display.
@@ -46,12 +50,15 @@ public class WorldClocks implements ActionListener {
     String city;
     String dateStr;
     String timeStr;
+    JButton addClock;
+    HashMap<String, TimeZone> clocks;
+    ArrayList<String> clockList;
     
     public WorldClocks() {
         clockUtil = new ClockUtilities();
 
         // The format for the city must be: city, country (all caps)
-        city = "Chicago, US";
+        city = "San Diego, US";
         timeZone = clockUtil.getTimeZoneFromCityName(city);
         
         Calendar calendar = Calendar.getInstance(timeZone);
@@ -60,15 +67,24 @@ public class WorldClocks implements ActionListener {
         dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         
         System.out.println(dateStr);
-
+  
         // Sample starter program
         frame = new JFrame();
         panel = new JPanel();
         textArea = new JTextArea();
+        addClock = new JButton();
+        JLabel addLabel = new JLabel("Add City");
+        addClock.addActionListener(this);
+        
+        clocks = new HashMap<String, TimeZone>();
+        
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setSize(100, 100);
         frame.add(panel);
+        panel.add(addClock);
+        addClock.add(addLabel);
         panel.add(textArea);
         textArea.setText(city + "\n" + dateStr);
         
@@ -80,13 +96,40 @@ public class WorldClocks implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        Calendar c = Calendar.getInstance(timeZone);
+    	
+    	 Object buttonPressed = arg0.getSource();
+         
+         if (buttonPressed == addClock) {
+         	String countryName = JOptionPane.showInputDialog("Input the country of the clock you would like to add");
+         	String cityName = JOptionPane.showInputDialog("Input the city of the clock you would like to add");
+         	String location = cityName + ", " + countryName;
+         	
+         	location = location.toUpperCase();
+         	TimeZone timeZone = clockUtil.getTimeZoneFromCityName(location);
+         	
+          clocks.put(location, timeZone);
+         
+         
+         }
+         
+    	clockList = new ArrayList<String>();
+    	for(String i : clocks.keySet()){
+        Calendar c = Calendar.getInstance(clocks.get(i));
         String militaryTime = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
         String twelveHourTime = " [" + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "]";
         timeStr = militaryTime + twelveHourTime;
         
         System.out.println(timeStr);
-        textArea.setText(city + "\n" + dateStr + "\n" + timeStr);
+       String label = i + "\n" + dateStr + "\n" + timeStr;
+        clockList.add(label);
+    	}
+    	
+    	String clocksString = String.join("\n ", clockList);;
+    	
+    	textArea.setText(clocksString);
         frame.pack();
+       
+        
     }
+   
 }
